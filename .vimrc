@@ -7,6 +7,11 @@ vnoremap <Leader>y "+yy
 nnoremap <Leader>p "*p
 vnoremap <Leader>p "*p
 
+call plug#begin("~/.vim/plugged")
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
 " Map <Leader>T to open netrw
 nnoremap <Leader>t :Explore<CR>
 
@@ -40,6 +45,11 @@ set statusline=%f          " Set the status line to show the file name
 
 nnoremap <Leader>j :bnext<CR>
 nnoremap <Leader>k :bprevious<CR>
-
 nnoremap <Leader>s :w<CR>:bd<CR>
+nnoremap <Leader>q :bd!<CR>
+
+
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>g :GFiles<CR>
+nnoremap <Leader>v :Rg<Space>
 
