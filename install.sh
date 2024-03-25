@@ -1,31 +1,31 @@
 #!/bin/bash
 
 # Update package list and upgrade existing packages
-sudo apt-get update && sudo apt-get upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 # Install Vim if it's not already installed
 if ! command -v vim &> /dev/null; then
-    sudo apt-get install -y vim
+    sudo apt install -y vim
 fi
 
 # Install xclip for clipboard access if it's not already installed
 if ! command -v xclip &> /dev/null; then
-    sudo apt-get install -y xclip
+    sudo apt install -y xclip
 fi
 
 # Install git if it's not already installed
 if ! command -v git &> /dev/null; then
-    sudo apt-get install -y git
+    sudo apt install -y git
 fi
 
 # Install fzf if it's not already installed
 if ! command -v fzf &> /dev/null; then
-    sudo apt-get install -y fzf
+    sudo apt install -y fzf
 fi
 
 # Install ripgrep for :Rg command if it's not already installed
 if ! command -v rg &> /dev/null; then
-    sudo apt-get install -y ripgrep
+    sudo apt install -y ripgrep
 fi
 
 # Install vim-plug plugin manager if it's not already installed
