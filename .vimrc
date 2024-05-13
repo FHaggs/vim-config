@@ -1,13 +1,15 @@
 set relativenumber
+set number
 let mapleader=" "
-set tabstop=4
-set expandtab 
-
+set tabstop=4       " Number of spaces that a <Tab> in the file counts for
+set shiftwidth=4    " Number of spaces to use for each step of (auto)indent
+set expandtab       " Use spaces instead of tabs
 nnoremap <Leader>y "+yy
 vnoremap <Leader>y "+yy
 nnoremap <Leader>p "*p
 vnoremap <Leader>p "*p
-
+set background=dark
+colorscheme retrobox
 call plug#begin("~/.vim/plugged")
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -44,3 +46,32 @@ inoremap {;<CR> {<CR>};<ESC>O
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code
+xmap <leader>e  <Plug>(coc-format-selected)
+nmap <leader>e  <Plug>(coc-format-selected)
+nmap <leader>qf  <Plug>(coc-fix-current)
+command! -nargs=0 Format :call CocActionAsync('format')
