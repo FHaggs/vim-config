@@ -41,6 +41,16 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+
+nnoremap <C-D> <C-D>zz
+nnoremap <C-U> <C-U>zz
+
+
+" Set up CoC for Python with Pyright
+autocmd FileType python setl omnifunc=coc#complete
+let g:coc_global_extensions = ['coc-pyright']
+
+
 " COC STUFF
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
