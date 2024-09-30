@@ -63,6 +63,10 @@ let g:coc_global_extensions = ['coc-pyright']
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+
+
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
