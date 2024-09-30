@@ -4,21 +4,30 @@ let mapleader=" "
 set tabstop=4       " Number of spaces that a <Tab> in the file counts for
 set shiftwidth=4    " Number of spaces to use for each step of (auto)indent
 set expandtab       " Use spaces instead of tabs
+set ic              " search not case sensitive
 nnoremap <Leader>y "+yy
 vnoremap <Leader>y "+yy
 nnoremap <Leader>p "*p
 vnoremap <Leader>p "*p
-set background=dark
-colorscheme retrobox
+
+" Enable search highlighting
+set hlsearch
+
+" Automatically clear search highlight when you press Esc
+nnoremap <Leader><Esc> :nohlsearch<CR>
+
 call plug#begin("~/.vim/plugged")
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'morhetz/gruvbox'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
-
+autocmd vimenter * ++nested colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_dark = 'hard'
 " Map <Leader>T to open netrw
 nnoremap <Leader>t :Explore<CR>
-
 
 set laststatus=2           " Always display the status line
 set statusline=%f          " Set the status line to show the file name
@@ -28,7 +37,6 @@ nnoremap <Leader>k :bprevious<CR>
 nnoremap <Leader>s :w<CR>:bd<CR>
 nnoremap <Leader>q :bd!<CR>
 nnoremap <Leader>b :Buffers<CR>
-
 
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>g :GFiles<CR>
@@ -45,11 +53,9 @@ inoremap {;<CR> {<CR>};<ESC>O
 nnoremap <C-D> <C-D>zz
 nnoremap <C-U> <C-U>zz
 
-
 " Set up CoC for Python with Pyright
 autocmd FileType python setl omnifunc=coc#complete
 let g:coc_global_extensions = ['coc-pyright']
-
 
 " COC STUFF
 " Make <CR> to accept selected completion item or notify coc.nvim to format
@@ -59,7 +65,7 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
@@ -74,9 +80,6 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -85,3 +88,9 @@ xmap <leader>e  <Plug>(coc-format-selected)
 nmap <leader>e  <Plug>(coc-format-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)
 command! -nargs=0 Format :call CocActionAsync('format')
+
+augroup python_formatting
+  autocmd!
+  autocmd FileType python setlocal formatprg=ruff\ format\ -
+augroup END
+
